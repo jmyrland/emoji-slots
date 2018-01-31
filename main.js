@@ -1,6 +1,5 @@
 const readline = require('readline')
-const spin = require('./spin')
-// const calculateWinnings = require('./calculateWinnings')
+const spin = require('./slot-machine/spin')
 
 const clearScreen = () => {
     console.log('\x1B[2J\x1B[0f');
@@ -16,15 +15,26 @@ const rl = readline.createInterface({
 });
 
 const strip = [
-    '💩',
     '🤑',
+    '💩',
+    '💩',
+    '💩',
+    '🤖',
+    '🐸',
+    '🐸',
+    '🐸',
+    '🙈',
+    '🙈',
+    '🙈',
+    '🐧',
+    '🐧',
+    '🐧',
+    '🐱',
+    '🐱',
+    '🐱',
+    '🐱',
 ];
 const slots = [strip, strip, strip];
-
-// const rewards = {
-//     '💩': 10,
-//     '🤑': 20,
-// }
 
 const randomizer = () => Math.round(Math.random() * (strip.length-1))
 
@@ -34,7 +44,7 @@ rl.on('line', function(line){
 
     clearScreen();
     
-    const result = spin(slots, rewards, randomizer)
+    const result = spin(slots, randomizer)
 
     // bank += calculateWinnings();
 
