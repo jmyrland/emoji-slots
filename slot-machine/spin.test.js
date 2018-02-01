@@ -2,7 +2,7 @@ const spin = require('./spin')
 
 const strip = [
     '💩',
-    '🤑',
+    '💰',
 ];
 
 const slots = [
@@ -27,7 +27,7 @@ test('randomizer is called', () => {
 test('win condition', () => {
     const randomizer = () => 1;
     const result = spin(slots, randomizer)
-    expect(result).toEqual(['🤑','🤑','🤑']);
+    expect(result).toEqual(['💰','💰','💰']);
 })
 
 test('loose condition', () => {
@@ -36,5 +36,5 @@ test('loose condition', () => {
         .mockReturnValue(1);
 
     const result = spin(slots, randomizer)
-    expect(result).toEqual(['💩','🤑','🤑']);
+    expect(result).toEqual(['💩','💰','💰']);
 })
