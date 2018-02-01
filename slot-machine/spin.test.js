@@ -1,4 +1,4 @@
-const spin = require('./slot-machine/spin')
+const spin = require('./spin')
 
 const strip = [
     '💩',
