@@ -1,5 +1,6 @@
 const readline = require('readline')
 const spin = require('./slot-machine/spin')
+const calculateWinnings = require('./slot-machine/calculateWinnings')
 
 const clearScreen = () => {
     console.log('\x1B[2J\x1B[0f');
@@ -16,24 +17,36 @@ const rl = readline.createInterface({
 
 const strip = [
     '🤑',
-    '💩',
-    '💩',
-    '💩',
-    '🤖',
     '🐸',
     '🐸',
     '🐸',
     '🙈',
     '🙈',
     '🙈',
-    '🐧',
-    '🐧',
-    '🐧',
+    '🙈',
     '🐱',
     '🐱',
     '🐱',
     '🐱',
+    '🐱',
+    '💩',
+    '💩',
+    '💩',
+    '💩',
+    '💩',
+    '💩',
+    '💩',
+    '💩',
+    '💩',
 ];
+
+const rewards = {
+    '🤑': 1000,
+    '🐸': 500,
+    '🐱': 100,
+    '💩': 10,
+}
+
 const slots = [strip, strip, strip];
 
 const randomizer = () => Math.round(Math.random() * (strip.length-1))
@@ -45,14 +58,14 @@ rl.on('line', function(line){
     clearScreen();
     
     const result = spin(slots, randomizer)
-
-    // bank += calculateWinnings();
+    const currentWinnings = calculateWinnings(rewards, result);
+    bank += currentWinnings;
 
     console.log("");
     console.log("");
     console.log(result.map((r) => `[${r}  ]`).join(' '));
     console.log("");
-    // console.log("Bank total: " + bank);
+    console.log(`Bank total: ${bank} ${currentWinnings > 0 ? `(+${currentWinnings})` : ''}`);
     console.log("");
     console.log("");
     console.log("Hit enter to spin again!");
