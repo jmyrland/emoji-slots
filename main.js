@@ -58,7 +58,7 @@ rl.on('line', function(line){
     clearScreen();
     
     const result = spin(slots, randomizer)
-    const currentWinnings = calculateWinnings(rewards, result);
+    const currentWinnings = calculateWinnings(result, rewards);
     bank += currentWinnings;
 
     console.log("");

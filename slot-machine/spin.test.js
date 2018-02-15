@@ -1,40 +1,77 @@
 const spin = require('./spin')
 
-const strip = [
-    '💩',
-    '🤑',
-];
-
-const slots = [
-    strip,
-    strip,
-    strip,
+const reel = [
+    '🤕',
+    '🤢' 
 ]
 
-test('result to be an array', () => {
-    const randomizer = jest.fn();
+test('that the result is an array', () => {
+    const randomizer = () => 0;
+    const slots = [
+        reel,
+        reel,
+        reel
+    ]
     const result = spin(slots, randomizer)
-    expect(result).toBeInstanceOf(Array);
-    expect(result.length).toEqual(slots.length);
+    expect(result).toBeInstanceOf(Array)
 })
 
-test('randomizer is called', () => {
-    const randomizer = jest.fn();
+test('that the result is an array of correct length', () => {
+    const randomizer = () => 0;
+    const slots = [
+        reel,
+        reel,
+        reel
+    ]
     const result = spin(slots, randomizer)
-    expect(randomizer).toHaveBeenCalledTimes(slots.length);
+    expect(result.length).toEqual(3)
 })
 
-test('win condition', () => {
-    const randomizer = () => 1;
-    const result = spin(slots, randomizer)
-    expect(result).toEqual(['🤑','🤑','🤑']);
+test('that randomizer is called', () => {
+    const fakeRandomizer = jest.fn()
+        .mockReturnValue(0);
+    const slots = [
+        reel,
+        reel,
+        reel
+    ]
+    spin(slots, fakeRandomizer)
+    expect(fakeRandomizer)
+        .toHaveBeenCalledTimes(3);
 })
 
-test('loose condition', () => {
-    const randomizer = jest.fn()
+test('Win condition', () => {
+    const randomizer = () => 0;
+    const slots = [
+        reel,
+        reel,
+        reel
+    ]
+    const result = spin(slots, randomizer)
+    expect(result).toEqual(['🤕', '🤕', '🤕'])
+})
+
+test('Loss condition', () => {
+    const fakeRandomizer = jest.fn()
         .mockReturnValueOnce(0)
-        .mockReturnValue(1);
+        .mockReturnValueOnce(1)
+        .mockReturnValueOnce(0)
 
-    const result = spin(slots, randomizer)
-    expect(result).toEqual(['💩','🤑','🤑']);
+    const slots = [
+        reel,
+        reel,
+        reel
+    ]
+    const result = spin(slots, fakeRandomizer)
+    expect(result).toEqual(['🤕', '🤢', '🤕'])
+})
+
+test('variable reels yields correct result', () => {
+    const fakeRandomizer = jest.fn()
+        .mockReturnValue(0)
+    const slots = [
+        reel
+    ]
+    const result = spin(slots, fakeRandomizer)
+    expect(result).toEqual(['🤕'])
 })

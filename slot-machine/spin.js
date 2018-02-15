@@ -1,5 +1,5 @@
 
 const spin = (slots, randomizer) => 
-    slots.map(strip => strip[randomizer()] )
+    slots.map(reel => reel[randomizer()])
 
 module.exports = spin;
